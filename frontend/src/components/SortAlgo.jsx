@@ -6,6 +6,9 @@ const colors = {
     default: 'crimson',
     selected: 'blue',
     minimum: 'lightgreen',
+    good: 'green',
+    bad: 'red',
+    hold:'purple',
 }
 
 const Button = styled.div`
@@ -26,7 +29,6 @@ function SortAlgo() {
     const [arr, setArr] = useState([]);
     const [arrSize, setArrSize] = useState(25);
     const [delay, setDelay] = useState(5.00);
-    const [indexAccess, setIndexAccess] = useState(-1);
     const randomize = () => {
         let cur = []
         for (let i = 0; i < arrSize; i++) {
@@ -34,13 +36,20 @@ function SortAlgo() {
         }
         setArr(cur);
     }
-    // const [arr, setArr] = useState([7, 4, 3, 4, 8, 5, 7, 6, 2, 5, 3, 4, 1]);
-    const arrI = (index, value) => {
-        setArr(arr.map((item, idx) => idx === index ? value : item));
-        // console.log(arr);
-    }
     const timer = ms => new Promise(res => setTimeout(res, ms))
 
+    const finishAnim = async () => {
+        let newArr = arr;
+        newArr[0].col = colors.good;
+        for (let i = 1; i < arrSize; i++) {
+            if (newArr[i] < newArr[i - 1])
+                newArr[i].col = colors.bad;
+            else
+                newArr[i].col = colors.good;
+            setArr([...newArr]);
+            await timer(delay);
+        }
+    }
 
     async function bubbleSort() {
         const newArr = arr;
@@ -59,9 +68,9 @@ function SortAlgo() {
                     newArr[j].col = colors.default;
                     setArr([...newArr]);
                 }
-
             }
         }
+        finishAnim();
     }
     async function cocktailShaker() {
         const newArr = arr;
@@ -105,6 +114,8 @@ function SortAlgo() {
                 setArr([...newArr]);
             }
         }
+        finishAnim();
+
     }
     async function insertionSort() {
         const newArr = arr;
@@ -128,31 +139,83 @@ function SortAlgo() {
                 j--;
             }
         }
+        finishAnim();
+
     }
     async function selectionSort() {
         const newArr = arr;
         for (let i = 0; i < arrSize; i++) {
             let mn = i;
+            newArr[i].col = colors.hold;
             for (let j = i + 1; j < arrSize; j++) {
+                let p1 = newArr[j].col, p2 = newArr[mn].col;
                 newArr[j].col = colors.selected;
                 newArr[mn].col = colors.minimum;
                 setArr([...newArr]);
 
                 await timer(delay);
-
-                newArr[j].col = colors.default;
-                newArr[mn].col = colors.default;
+                
+                newArr[j].col = p1;
+                newArr[mn].col = p2;
                 setArr([...newArr]);
-
+                
                 if (newArr[j].val < newArr[mn].val)
-                    mn = j;
+                mn = j;
             }
             let temp = newArr[i].val;
             newArr[i].val = newArr[mn].val;
             newArr[mn].val = temp;
+            await timer(delay);
+            setArr([...newArr]);
+            newArr[i].col = colors.default;
+        }
+        finishAnim();
+
+    }
+    async function mergeSort() {
+        await mergeSortHelper(0, arrSize - 1);
+        finishAnim();
+    }
+    async function mergeSortHelper(l, r) {
+        if (l >= r) return;
+        let mid = Math.floor((l + r) / 2);
+        await mergeSortHelper(l, mid);
+        await mergeSortHelper(mid + 1, r);
+        const newArr = arr;
+        const sortedArr = [];
+        let i = l, j = mid + 1;
+        while (i <= mid || j <= r) {
+            while (i <= mid && j <= r) {
+                newArr[i].col = colors.selected;
+                newArr[j].col = colors.selected;
+                setArr([...newArr]);
+                await timer(delay);
+                newArr[i].col = colors.default;
+                newArr[j].col = colors.default;
+                setArr([...newArr]);
+
+                if (newArr[i].val <= newArr[j].val)
+                    sortedArr.push(newArr[i++]);
+                else
+                    sortedArr.push(newArr[j++]);
+
+            }
+            while (i <= mid)
+                sortedArr.push(newArr[i++]);
+            while (j <= r)
+                sortedArr.push(newArr[j++]);
+        }
+        i = l; j = 0;
+        while (i <= r) {
+            newArr[i].col = colors.minimum;
+            setArr([...newArr]);
+            await timer(delay);
+            newArr[i].col = colors.default;
+
+            newArr[i] = sortedArr[j];
+            i++; j++;
             setArr([...newArr]);
         }
-        setIndexAccess(-1);
     }
 
     useEffect(() => {
@@ -189,16 +252,16 @@ function SortAlgo() {
                     onChange={((val) => setDelay(val))}
                 />
             </div>
-            {arrSize + ' ' + delay}
-            <div style={{ display: 'flex', gap:'10px' }}>
+            <div style={{ display: 'flex', gap: '10px' }}>
                 <button onClick={() => randomize()}>RANDOMIZEEE!</button>
                 <button onClick={() => bubbleSort()}>Bubble Sort</button>
                 <button onClick={() => insertionSort()}>Insertion Sort</button>
                 <button onClick={() => cocktailShaker()}>Cocktail Shaker Sort</button>
                 <button onClick={() => selectionSort()}>Selection Sort</button>
+                <button onClick={() => mergeSort()}>Merge Sort</button>
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '1px', width: '95vw', height: '500px' }}>
-                {arr.map((item, idx) => <Button key={idx} height={item.val} bg={item.col}></Button>)}
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', width: '95vw', height: '500px' }}>
+                {arr.map((item, idx) => <Button height={item.val} bg={item.col}></Button>)}
             </div>
         </Div>
     )
