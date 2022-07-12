@@ -3,7 +3,7 @@ import './index.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import SortAlgo from "./components/Sorting/SortAlgo";
-import SearchAlgo from "./components/SearchAlgo";
+import SearchAlgo from "./components/Searching/SearchAlgo";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root")

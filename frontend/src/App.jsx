@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
-import SortAlgo from "./components/Sorting/SortAlgo";
 
 const NavBar = styled.nav`
   flex:0;
