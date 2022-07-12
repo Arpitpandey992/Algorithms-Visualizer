@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReactSlider from 'react-slider';
 import { BFS } from './Algorithms/BFS';
 import Slider from '../Slider';
-import { CounterBox, TopBar } from '../Sorting/SortAlgo';
+import { CounterBox, StyledButton, TopBar } from '../Sorting/SortAlgo';
 import { DFS } from './Algorithms/DFS';
 import { DrunkDFS } from './Algorithms/Drunk_DFS';
 
@@ -16,17 +16,13 @@ export const colors = {
     path: 'palevioletred'
 }
 
-const StyledButton = styled.button`
-    padding:0px 10px;
-    font-size:large;
-`
 const Container = styled.div`
     flex:1;
     display:flex;
     flex-direction:column;
     padding: 10px;
     gap:10px;
-    /* background-image: linear-gradient(to right, #fff7c7 , #deffff); */
+    background-image: linear-gradient(to right, #fff7c7 , #deffff);
     margin:10px;
     border-radius:20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -34,16 +30,19 @@ const Container = styled.div`
 
 const VisualContainer = styled.div`
     display: grid;
-    /* grid-template-rows:repeat(${props => props.row},1fr); */
     grid-template-columns:repeat(${props => props.col},1fr);
-    /* grid-gap:2px; */
     flex:1;
-    border:1px solid;
+    row-gap:${props => props.rowGap}px;
+    column-gap:${props => props.colGap}px;    
 `
 const GridBox = styled.div`
     background-color:${props => props.bg};
-    border:1px solid;
-    /* border-radius:10px; */    
+    border:1px solid gray;
+    border-top-left-radius:${props => props.TLR}px;
+    border-top-right-radius:${props => props.TRR}px;
+    border-bottom-left-radius:${props => props.BLR}px;
+    border-bottom-right-radius:${props => props.BRR}px;
+    box-shadow: rgba(0, 0, 0, 0.24) 1px 3px 8px;
     `
 export let start, end;
 function SearchAlgo() {
@@ -150,10 +149,18 @@ function SearchAlgo() {
                 <StyledButton onClick={() => DFS(arr, setArr, row, col, delay, randomize)}>DFS</StyledButton>
                 <StyledButton onClick={() => DrunkDFS(arr, setArr, row, col, delay)}>Drunk DFS</StyledButton>
             </TopBar>
-            <VisualContainer row={row} col={col}>
+            <VisualContainer
+                row={row}
+                col={col}
+                rowGap={Math.floor((1080 * 0.05) / row)}
+                colGap={Math.floor((1920 * 0.05) / col)}>
                 {arr.map((item, i) => (
                     <GridBox
                         draggable='false'
+                        TLR={item.val == 0 ? 15 : 3}
+                        TRR={item.val == col - 1 ? 15 : 3}
+                        BLR={item.val == (row - 1) * (col) ? 15 : 3}
+                        BRR={item.val == row * col - 1 ? 15 : 3}
                         bg={getColor(item)}
                         onMouseDown={() => handleMouseDown(i)}
                         onMouseEnter={() => handleMouseEnter(i)}

@@ -5,8 +5,8 @@ import { bubbleSort, cocktailShaker, insertionSort, selectionSort, mergeSort, qu
 import Slider from '../Slider';
 
 export const colors = {
-    default: 'crimson',
-    selected: 'blue',
+    default: '#a52c44',
+    selected: 'skyblue',
     minimum: '#22c7b9',
     good: 'green',
     bad: 'red',
@@ -21,11 +21,14 @@ const Bar = styled.div`
     height: ${(props) => props.height * 5}px;
     background-color:${props => props.bg};
     border-radius:10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 100px 3px 8px;
 `
-const StyledButton = styled.button`
-    padding:10px;
+export const StyledButton = styled.button`
+    padding:3px 10px;
     font-size:x-large;
-
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius:10px;
+    border:solid gray;
 `
 const Container = styled.div`
     flex:1;
@@ -44,6 +47,8 @@ const VisualContainer = styled.div`
     align-items: flex-end;
     gap: ${({ siz }) => siz <= 100 ? 2 : siz <= 300 ? 1 : 0}px;
     flex:1;
+    border-radius:15px;
+    overflow:hidden;
 `
 export const TopBar = styled.div`
     display: flex;
@@ -61,6 +66,7 @@ export const CounterBox = styled.div`
     display:flex;
     align-items:center;
     justify-content:center;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `
 
 function SortAlgo() {

@@ -20,7 +20,7 @@ const LinkDiv = styled.div`
   padding:10px;
   background-color:lightsalmon;
   border-radius:10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 `
 const Container = styled.div`
   display:flex;
