@@ -1,8 +1,5 @@
+import { timer } from "../Utility";
 import { colors } from "./SortAlgo";
-
-
-
-const timer = ms => new Promise(res => setTimeout(res, ms));
 
 export async function finishAnim(arr, arrSize, setArr, delay) {
     let newArr = arr;
@@ -151,40 +148,64 @@ export async function mergeSort(arr, arrSize, setArr, delay) {
     async function merge(l, r) {
         let mid = Math.floor((l + r) / 2);
         const newArr = arr;
-        const sortedArr = [];
-        let i = l, j = mid + 1;
-        while (i <= mid || j <= r) {
-            while (i <= mid && j <= r) {
-                newArr[i].col = colors.selected;
-                newArr[j].col = colors.selected;
-                setArr([...newArr]);
-                await timer(delay);
-                newArr[i].col = colors.default;
-                newArr[j].col = colors.default;
-                setArr([...newArr]);
-
-                if (newArr[i].val <= newArr[j].val)
-                    sortedArr.push(newArr[i++]);
-                else
-                    sortedArr.push(newArr[j++]);
-
+        let start = l, start2 = mid + 1;
+        while (start <= mid && start2 <= r) {
+            if (newArr[start].val <= newArr[start2].val) {
+                start++;
             }
-            while (i <= mid)
-                sortedArr.push(newArr[i++]);
-            while (j <= r)
-                sortedArr.push(newArr[j++]);
-        }
-        i = l; j = 0;
-        while (i <= r) {
-            newArr[i].col = colors.minimum;
-            setArr([...newArr]);
-            await timer(delay);
-            newArr[i].col = colors.default;
+            else {
+                let value = newArr[start2].val;
+                let index = start2;
+                newArr[start].col = colors.selected;
+                newArr[start2].col = colors.selected;
+                setArr([...newArr]);
+                while (index != start) {
+                    newArr[index].val = newArr[index-1].val;
+                    index--;
+                }
+                newArr[start].val = value;
+                await timer(delay);
+                newArr[start].col = colors.default;
+                newArr[start2].col = colors.default;
+                setArr([...newArr]);
 
-            newArr[i] = sortedArr[j];
-            i++; j++;
-            setArr([...newArr]);
+                start++;
+                mid++;
+                start2++;
+            }
         }
+        // while (i <= mid || j <= r) {
+        //     while (i <= mid && j <= r) {
+        //         newArr[i].col = colors.selected;
+        //         newArr[j].col = colors.selected;
+        //         setArr([...newArr]);
+        //         await timer(delay);
+        //         newArr[i].col = colors.default;
+        //         newArr[j].col = colors.default;
+        //         setArr([...newArr]);
+
+        //         if (newArr[i].val <= newArr[j].val)
+        //             sortedArr.push(newArr[i++]);
+        //         else
+        //             sortedArr.push(newArr[j++]);
+
+        //     }
+        //     while (i <= mid)
+        //         sortedArr.push(newArr[i++]);
+        //     while (j <= r)
+        //         sortedArr.push(newArr[j++]);
+        // }
+        // i = l; j = 0;
+        // while (i <= r) {
+        //     newArr[i].col = colors.minimum;
+        //     setArr([...newArr]);
+        //     await timer(delay);
+        //     newArr[i].col = colors.default;
+
+        //     newArr[i] = sortedArr[j];
+        //     i++; j++;
+        //     setArr([...newArr]);
+        // }
     }
 }
 export async function quickSort(arr, arrSize, setArr, delay) {
@@ -197,7 +218,7 @@ export async function quickSort(arr, arrSize, setArr, delay) {
         await quickSortHelper(l, pivPoint - 1);
         await quickSortHelper(pivPoint + 1, r);
     }
-    
+
     async function partition(l, r, piv) {
         const newArr = arr;
         let i = l, j = l;

@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactSlider from 'react-slider';
 import { bubbleSort, cocktailShaker, insertionSort, selectionSort, mergeSort, quickSort } from './SortAlgorithms';
+import Slider from '../Slider';
 
 export const colors = {
     default: 'crimson',
     selected: 'blue',
-    minimum: 'lightgreen',
+    minimum: '#22c7b9',
     good: 'green',
     bad: 'red',
     hold: 'purple',
@@ -44,6 +45,23 @@ const VisualContainer = styled.div`
     gap: ${({ siz }) => siz <= 100 ? 2 : siz <= 300 ? 1 : 0}px;
     flex:1;
 `
+export const TopBar = styled.div`
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    align-self: 'center';
+    justify-content:center;
+`
+export const CounterBox = styled.div`
+    width:70px;
+    height:35px;
+    background-color:#f8f8f8;
+    border-radius:5px;
+    border:solid grey;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+`
 
 function SortAlgo() {
     const [arr, setArr] = useState([]);
@@ -63,35 +81,26 @@ function SortAlgo() {
 
     return (
         <Container>
-            <div style={{ display: 'flex', width: '100%', padding: '10px', gap: '10px' }}>
-                <div>Array Size</div>
-                <ReactSlider
-                    className="horizontal-slider"
-                    marks
-                    markClassName="example-mark"
+            <TopBar>
+                <CounterBox style={{ width: '200px' }}>Array Size</CounterBox>
+                <CounterBox>{arrSize}</CounterBox>
+                <Slider
                     min={1}
                     max={1000}
-                    thumbClassName="example-thumb"
-                    trackClassName="example-track"
-                    renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
                     value={arrSize}
                     onChange={((val) => setArrSize(val))}
                 />
-                <div>Delay in ms</div>
-                <ReactSlider
-                    className="horizontal-slider"
-                    marks
-                    markClassName="example-mark"
-                    min={1}
+                <CounterBox style={{ width: '200px' }}>Delay</CounterBox>
+                <CounterBox>{delay}</CounterBox>
+                <Slider
+                    min={0}
                     max={100}
-                    thumbClassName="example-thumb"
-                    trackClassName="example-track"
-                    renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                    step={5}
                     value={delay}
                     onChange={((val) => setDelay(val))}
                 />
-            </div>
-            <div style={{ display: 'flex', gap: '10px', alignSelf: 'center' }}>
+            </TopBar>
+            <TopBar>
                 <StyledButton onClick={() => randomize(arr, arrSize, setArr, delay)}>RANDOMIZEEE!</StyledButton>
                 <StyledButton onClick={() => bubbleSort(arr, arrSize, setArr, delay)}>Bubble Sort</StyledButton>
                 <StyledButton onClick={() => insertionSort(arr, arrSize, setArr, delay)}>Insertion Sort</StyledButton>
@@ -99,7 +108,7 @@ function SortAlgo() {
                 <StyledButton onClick={() => selectionSort(arr, arrSize, setArr, delay)}>Selection Sort</StyledButton>
                 <StyledButton onClick={() => mergeSort(arr, arrSize, setArr, delay)}>Merge Sort</StyledButton>
                 <StyledButton onClick={() => quickSort(arr, arrSize, setArr, delay)}>Quick Sort</StyledButton>
-            </div>
+            </TopBar>
             <VisualContainer siz={arrSize}>
                 {arr.map((item, idx) => <Bar height={item.val} bg={item.col}></Bar>)}
             </VisualContainer>
