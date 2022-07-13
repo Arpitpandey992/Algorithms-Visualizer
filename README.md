@@ -1,5 +1,5 @@
 # Algorithms-Visualizer
 Hobby Project created using React.js
 
-Currently, visualization of Sorting algorithms is possible.
-Next task is visualizing graph algorithms.
+To run the project, run npm install in frontend folder,
+then run npm start.
