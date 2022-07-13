@@ -1,7 +1,6 @@
 import { getCoor, getIndex, restoreGrid, timer } from "../../Utility";
-import { start, end } from "../SearchAlgo"
+import { start, end } from "../SearchAlgo";
 import { BuildPath } from "./BuildPath";
-
 
 export const BFS = async (arr, setArr, row, col, delay) => {
     let newArr = arr;
@@ -16,18 +15,26 @@ export const BFS = async (arr, setArr, row, col, delay) => {
 
         let [i, j] = getCoor(x, col);
         for (let k = 0; k < 4; k++) {
-            let nx = i + dx[k], ny = j + dy[k];
+            let nx = i + dx[k],
+                ny = j + dy[k];
             let idx = getIndex(nx, ny, col);
-            if (nx < 0 || nx >= row || ny < 0 || ny >= col || newArr[idx].visited || newArr[idx].type == 'wall')
+            if (
+                nx < 0 ||
+                nx >= row ||
+                ny < 0 ||
+                ny >= col ||
+                newArr[idx].visited ||
+                newArr[idx].type === "wall"
+            )
                 continue;
             await timer(delay);
             newArr[idx].visited = true;
             q.push(idx);
             newArr[idx].par = x;
-            if (idx == end) {
+            if (idx === end) {
                 await BuildPath(arr, setArr, delay * 10);
                 return;
             }
         }
     }
-}
+};

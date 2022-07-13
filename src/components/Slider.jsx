@@ -1,6 +1,6 @@
-import ReactSlider from "react-slider"
+import ReactSlider from "react-slider";
 
-export default function (props) {
+const Slider = (props) => {
     return (
         <ReactSlider
             className="horizontal-slider"
@@ -10,5 +10,7 @@ export default function (props) {
             trackClassName="example-track"
             {...props}
         />
-    )
-}
+    );
+};
+
+export default Slider;
