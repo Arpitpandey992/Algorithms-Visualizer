@@ -30,13 +30,11 @@ export const Sidewinder = async (arr, setArr, row, col, delay) => {
         await timer(delay);
         setArr([...newArr]);
     }
-    setArr([...newArr]);
     for (let i = 1; i + 1 < row; i += 2) {
         let j = 1;
         if (i + 3 !== row) {
             for (let k = j; k < col; k += 2) {
-                if (getIndex(i + 1, k, col) !== start)
-                    change(newArr, i + 1, k, col, "wall");
+                // change(newArr, i + 1, k, col, "wall");
                 change(newArr, i + 1, k + 1, col, "wall");
                 await timer(delay);
                 setArr([...newArr]);
@@ -50,10 +48,18 @@ export const Sidewinder = async (arr, setArr, row, col, delay) => {
                 else break;
             }
             let cutDown = generateRandom(Math.floor((k - j) / 2) + 1);
-            change(newArr, i, k + 1, col, "wall");
-            change(newArr, i + 1, j + cutDown * 2, col, "empty");
             await timer(delay * 2);
             setArr([...newArr]);
+            change(newArr, i, k + 1, col, "wall");
+            if (i + 3 !== row) {
+                for (let L = j; L <= k; L++) {
+                    if (L !== j + cutDown * 2) {
+                        change(newArr, i + 1, L, col, "wall");
+                        await timer(delay * 2);
+                        setArr([...newArr]);
+                    }
+                }
+            }
             j = k + 2;
         }
     }

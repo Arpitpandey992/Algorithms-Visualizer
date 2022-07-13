@@ -22,9 +22,9 @@ export const Bar = styled.div`
 export const StyledButton = styled.button`
     padding: 3px 10px;
     font-size: medium;
-    box-shadow: 0 5px #999;
-    border-radius: 15px;
-    border: solid gray;
+    box-shadow: rgba(0, 0, 0, 0.24) 3px 3px 8px;
+    border-radius: 10px;
+    border: outset;
     background-color: #dff0f9;
     -webkit-transition: background 300ms;
     transition: background 300ms;
@@ -32,9 +32,9 @@ export const StyledButton = styled.button`
         background-color: #ffa7a7;
     }
     &:active {
-        background-color: #3e8e41;
-        box-shadow: 0 3px #666;
-        transform: translateY(2px);
+        background-color: #92fe96;
+        box-shadow: none;
+        transform: translateX(2px) translateY(2px);
     }
 `;
 export const Container = styled.div`
@@ -69,10 +69,10 @@ export const CounterBox = styled.div`
     width: 80px;
     background-color: #f8f8f8;
     border-radius: 10px;
-    border: solid grey;
+    border: outset 1px grey;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 3px 3px 8px;
     pointer-events: none;
 `;

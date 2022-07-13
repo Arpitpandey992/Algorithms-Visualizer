@@ -15,12 +15,23 @@ const NavBar = styled.nav`
 `;
 const StyledLink = styled(Link)`
     text-decoration: none;
+    color:inherit;
 `;
 const LinkDiv = styled.div`
     padding: 10px;
-    background-color: lightsalmon;
+    background-color: #ffc4ad;
     border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 3px 3px 8px;
+    -webkit-transition: background 300ms;
+    transition: background 300ms;
+    &:hover {
+        background-color: #ffa7a7;
+    }
+    &:active {
+        
+        box-shadow: rgba(0, 0, 0, 0.24) 1px 1px 8px;
+        transform: translateX(2px) translateY(2px);
+    }
 `;
 const Container = styled.div`
     display: flex;
