@@ -32,7 +32,7 @@ export const BFS = async (arr, setArr, row, col, delay) => {
             q.push(idx);
             newArr[idx].par = x;
             if (idx === end) {
-                await BuildPath(arr, setArr, delay * 10);
+                await BuildPath(arr, setArr, delay);
                 return;
             }
         }

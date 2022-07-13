@@ -10,6 +10,7 @@ import {
     GridBox,
     VisualContainer,
 } from "./StyledComponents";
+import { A_Star } from "./Algorithms/A_Star";
 
 export let start, end;
 function PathfindingAlgo() {
@@ -125,6 +126,11 @@ function PathfindingAlgo() {
                     onClick={() => DrunkDFS(arr, setArr, row, col, delay)}
                 >
                     Drunk DFS
+                </StyledButton>
+                <StyledButton
+                    onClick={() => A_Star(arr, setArr, row, col, delay)}
+                >
+                    A*
                 </StyledButton>
             </TopBar>
             <VisualContainer
