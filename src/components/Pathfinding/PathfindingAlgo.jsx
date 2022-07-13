@@ -11,12 +11,13 @@ import {
     VisualContainer,
 } from "./StyledComponents";
 import { A_Star } from "./Algorithms/A_Star";
+import { Sidewinder } from "./MazeForming/Sidewinder";
 
 export let start, end;
 function PathfindingAlgo() {
     const [arr, setArr] = useState([]);
     const [row, setRow] = useState(20);
-    const [col, setCol] = useState(40);
+    const [col, setCol] = useState(49);
     const [isMousePressed, setIsMousePressed] = useState(false);
     const [delay, setDelay] = useState(5.0);
 
@@ -83,6 +84,7 @@ function PathfindingAlgo() {
                     <Slider
                         min={5}
                         max={100}
+                        step={2}    
                         value={row}
                         onChange={(val) => setRow(val)}
                     />
@@ -94,6 +96,7 @@ function PathfindingAlgo() {
                     <Slider
                         min={5}
                         max={100}
+                        step={2}
                         value={col}
                         onChange={(val) => setCol(val)}
                     />
@@ -131,6 +134,11 @@ function PathfindingAlgo() {
                     onClick={() => A_Star(arr, setArr, row, col, delay)}
                 >
                     A*
+                </StyledButton>
+                <StyledButton
+                    onClick={() => Sidewinder(arr, setArr, row, col, delay)}
+                >
+                    SideWinder Maze
                 </StyledButton>
             </TopBar>
             <VisualContainer
