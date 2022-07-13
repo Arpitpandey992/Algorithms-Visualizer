@@ -17,7 +17,7 @@ export let start, end;
 function PathfindingAlgo() {
     const [arr, setArr] = useState([]);
     const [row, setRow] = useState(20);
-    const [col, setCol] = useState(49);
+    const [col, setCol] = useState(55);
     const [isMousePressed, setIsMousePressed] = useState(false);
     const [delay, setDelay] = useState(5.0);
 
@@ -82,9 +82,9 @@ function PathfindingAlgo() {
 
                 <div style={{ width: "800px" }}>
                     <Slider
-                        min={5}
-                        max={100}
-                        step={2}    
+                        min={4}
+                        max={24}
+                        step={2} 
                         value={row}
                         onChange={(val) => setRow(val)}
                     />
@@ -95,7 +95,7 @@ function PathfindingAlgo() {
                 <div style={{ width: "800px" }}>
                     <Slider
                         min={5}
-                        max={100}
+                        max={71}
                         step={2}
                         value={col}
                         onChange={(val) => setCol(val)}
