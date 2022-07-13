@@ -55,14 +55,12 @@ function SearchAlgo() {
 
     const handleMouseDown = (i) => {
         setIsMousePressed(true);
-        if (arr[i].type !== "empty" && arr[i].type !== "wall") return;
-        let type = arr[i].type === "empty" ? "wall" : "empty";
+        let type = arr[i].type === "wall" ? "empty" : "wall";
         changeType(i, type);
     };
     const handleMouseEnter = (i) => {
         if (!isMousePressed) return;
-        if (arr[i].type !== "empty" && arr[i].type !== "wall") return;
-        let type = arr[i].type === "empty" ? "wall" : "empty";
+        let type = arr[i].type === "wall" ? "empty" : "wall";
         changeType(i, type);
     };
     const handleMouseUp = (i) => {
@@ -76,7 +74,7 @@ function SearchAlgo() {
 
     return (
         <Container>
-            <TopBar style={{ padding: "0px 10px" }}>
+            <TopBar>
                 <CounterBox style={{ width: "200px" }}>Row</CounterBox>
                 <CounterBox>{row}</CounterBox>
 
@@ -111,7 +109,7 @@ function SearchAlgo() {
                     />
                 </div>
             </TopBar>
-            <TopBar style={{ padding: "0px 10px" }}>
+            <TopBar>
                 <StyledButton onClick={() => randomize()}>
                     RANDOMIZE!
                 </StyledButton>

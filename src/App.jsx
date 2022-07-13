@@ -33,10 +33,10 @@ function App() {
     return (
         <Container>
             <NavBar>
-                <StyledLink to="/Algorithms-Visualizer/Sorting">
+                <StyledLink to="/Sorting">
                     <LinkDiv>Sorting Algorithms</LinkDiv>
                 </StyledLink>
-                <StyledLink to="/Algorithms-Visualizer/Searching">
+                <StyledLink to="/Searching">
                     <LinkDiv>Searching Algorithms</LinkDiv>
                 </StyledLink>
             </NavBar>

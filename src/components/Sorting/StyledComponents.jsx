@@ -21,10 +21,21 @@ export const Bar = styled.div`
 `;
 export const StyledButton = styled.button`
     padding: 3px 10px;
-    font-size: x-large;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 10px;
+    font-size: medium;
+    box-shadow: 0 5px #999;
+    border-radius: 15px;
     border: solid gray;
+    background-color: #dff0f9;
+    -webkit-transition: background 300ms;
+    transition: background 300ms;
+    &:hover {
+        background-color: #ffa7a7;
+    }
+    &:active {
+        background-color: #3e8e41;
+        box-shadow: 0 3px #666;
+        transform: translateY(2px);
+    }
 `;
 export const Container = styled.div`
     flex: 1;
@@ -32,8 +43,8 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: stretch;
     padding: 10px;
-    gap: 10px;
     background-image: linear-gradient(to right, #fff7c7, #deffff);
+    gap: 10px;
     margin: 10px;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -48,19 +59,20 @@ export const VisualContainer = styled.div`
 `;
 export const TopBar = styled.div`
     display: flex;
-    padding: 10px;
+    /* padding: 10px; */
     gap: 10px;
+    height: 40px;
     align-self: "center";
     justify-content: center;
 `;
 export const CounterBox = styled.div`
-    width: 70px;
-    height: 35px;
+    width: 80px;
     background-color: #f8f8f8;
-    border-radius: 5px;
+    border-radius: 10px;
     border: solid grey;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    pointer-events: none;
 `;
