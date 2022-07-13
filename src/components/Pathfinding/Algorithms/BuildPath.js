@@ -1,5 +1,5 @@
 import { timer } from "../../Utility";
-import { start, end } from "../SearchAlgo";
+import { start, end } from "../PathfindingAlgo";
 
 export const BuildPath = async (arr, setArr, delay) => {
     let newArr = arr;

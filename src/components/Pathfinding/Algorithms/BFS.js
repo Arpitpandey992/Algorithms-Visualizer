@@ -1,5 +1,5 @@
 import { getCoor, getIndex, restoreGrid, timer } from "../../Utility";
-import { start, end } from "../SearchAlgo";
+import { start, end } from "../PathfindingAlgo";
 import { BuildPath } from "./BuildPath";
 
 export const BFS = async (arr, setArr, row, col, delay) => {

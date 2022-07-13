@@ -12,7 +12,7 @@ import {
 } from "./StyledComponents";
 
 export let start, end;
-function SearchAlgo() {
+function PathfindingAlgo() {
     const [arr, setArr] = useState([]);
     const [row, setRow] = useState(20);
     const [col, setCol] = useState(40);
@@ -150,4 +150,4 @@ function SearchAlgo() {
         </Container>
     );
 }
-export default SearchAlgo;
+export default PathfindingAlgo;

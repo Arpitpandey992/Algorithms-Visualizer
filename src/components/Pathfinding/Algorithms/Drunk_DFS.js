@@ -5,7 +5,7 @@ import {
     shuffleArr,
     timer,
 } from "../../Utility";
-import { start, end } from "../SearchAlgo";
+import { start, end } from "../PathfindingAlgo";
 import { BuildPath } from "./BuildPath";
 
 let done = false;
