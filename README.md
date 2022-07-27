@@ -4,9 +4,10 @@
 It's a simple project to Visualize some common algorithms that we come across while studying Datastructures and Algorithms.
 
 ## Progress
-Currently, The following are implemented:
+Currently, The following are implemented (And being improved upon):
 * Sorting Algorithms
 * Pathfinding Algorithms
+* Maze Generation Algorithms
 
 ## Live Preview
 Check out the Project at <a href="https://arpitpandey992.github.io/Algorithms-Visualizer">Algorithms Visualizer</a>
