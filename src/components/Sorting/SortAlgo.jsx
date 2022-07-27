@@ -6,6 +6,7 @@ import {
     selectionSort,
     mergeSort,
     quickSort,
+    heapSort,
 } from "./SortAlgorithms";
 import Slider from "../Slider";
 import {
@@ -94,6 +95,11 @@ function SortAlgo() {
                     onClick={() => quickSort(arr, arrSize, setArr, delay)}
                 >
                     Quick Sort
+                </StyledButton>
+                <StyledButton
+                    onClick={() => heapSort(arr, arrSize, setArr, delay)}
+                >
+                    Heap Sort
                 </StyledButton>
             </TopBar>
             <VisualContainer siz={arrSize}>

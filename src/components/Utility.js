@@ -36,3 +36,9 @@ export const generateRandom = (max) => {
     rand = Math.floor(rand * max);
     return rand;
 };
+
+export const swap = (x, y) => {
+    let temp = x;
+    x = y;
+    y = temp;
+}

@@ -1,11 +1,11 @@
-import { timer } from "../Utility";
+import { swap, timer } from "../Utility";
 import { colors } from "./StyledComponents";
 
 export async function finishAnim(arr, arrSize, setArr, delay) {
     let newArr = arr;
     newArr[0].col = colors.good;
     for (let i = 1; i < arrSize; i++) {
-        if (newArr[i] < newArr[i - 1]) newArr[i].col = colors.bad;
+        if (newArr[i].val < newArr[i - 1].val) newArr[i].col = colors.bad;
         else newArr[i].col = colors.good;
         setArr([...newArr]);
         await timer(delay);
@@ -176,7 +176,7 @@ export async function mergeSort(arr, arrSize, setArr, delay) {
 }
 export async function quickSort(arr, arrSize, setArr, delay) {
     await quickSortHelper(0, arrSize - 1);
-    finishAnim(arr, arrSize, setArr, delay);
+    await finishAnim(arr, arrSize, setArr, delay);
 
     async function quickSortHelper(l, r) {
         if (l > r) return;
@@ -212,5 +212,73 @@ export async function quickSort(arr, arrSize, setArr, delay) {
         newArr[piv] = temp;
         setArr([...newArr]);
         return i;
+    }
+}
+
+export async function heapSort(arr, arrSize, setArr, delay) {
+    const newArr = arr;
+    let n = arrSize;
+    await heapify();
+    await sort();
+    await finishAnim(arr, arrSize, setArr, delay);
+
+    async function siftDown(i) {
+        if (i >= n) return;
+        let lef = 2 * i + 1 < n ? newArr[2 * i + 1].val : -1;
+        let rig = 2 * i + 2 < n ? newArr[2 * i + 2].val : -1;
+        if (newArr[i].val >= Math.max(lef, rig)) return;
+        let p1 = newArr[i].col;
+        newArr[i].col = colors.hold;
+        if (lef >= rig) {
+            let p2 = newArr[2 * i + 1].col;
+
+            let temp = newArr[2 * i + 1];
+            newArr[2 * i + 1] = newArr[i];
+            newArr[i] = temp;
+
+            newArr[i].col = colors.left;
+
+            await timer(delay);
+            setArr([...newArr]);
+
+            await siftDown(2 * i + 1);
+            newArr[i].col = p1;
+            newArr[2 * i + 1].col = p2;
+            return;
+        }
+        let p2 = newArr[2 * i + 2].col;
+
+        let temp = newArr[2 * i + 2];
+        newArr[2 * i + 2] = newArr[i];
+        newArr[i] = temp;
+
+        newArr[i].col = colors.left;
+
+        await timer(delay);
+        setArr([...newArr]);
+
+        await siftDown(2 * i + 2);
+        newArr[i].col = p1;
+        newArr[2 * i + 2].col = p2;
+    }
+
+    async function heapify (){
+        for (let i = n - 1; i >= 0; i--) {
+            await siftDown(i);
+        }
+    }
+
+    async function sort() {
+        while (n > 0) {
+            n--;
+            let temp = newArr[0];
+            newArr[0] = newArr[n];
+            newArr[n] = temp;
+            newArr[n].col = colors.sorted;
+            setArr([...newArr]);
+            await timer(delay);
+            await siftDown(0);
+        }
+        console.log("done");
     }
 }
