@@ -4,12 +4,16 @@ import { colors } from "./StyledComponents";
 export async function finishAnim(arr, arrSize, setArr, delay) {
     let newArr = arr;
     newArr[0].col = colors.good;
+    let flag = true;
     for (let i = 1; i < arrSize; i++) {
-        if (newArr[i].val < newArr[i - 1].val) newArr[i].col = colors.bad;
-        else newArr[i].col = colors.good;
+        if (newArr[i].val < newArr[i - 1].val) {
+            newArr[i].col = colors.bad;
+            flag = false;
+        } else newArr[i].col = colors.good;
         setArr([...newArr]);
         await timer(delay);
     }
+    return flag;
 }
 
 export async function bubbleSort(arr, arrSize, setArr, delay) {
@@ -262,7 +266,7 @@ export async function heapSort(arr, arrSize, setArr, delay) {
         newArr[2 * i + 2].col = p2;
     }
 
-    async function heapify (){
+    async function heapify() {
         for (let i = n - 1; i >= 0; i--) {
             await siftDown(i);
         }
@@ -280,5 +284,43 @@ export async function heapSort(arr, arrSize, setArr, delay) {
             await siftDown(0);
         }
         console.log("done");
+    }
+}
+
+export async function bogoSort(arr, arrSize, setArr, delay) {
+    while (!(await isSorted())) {
+        await randomize();
+    }
+    await finishAnim(arr, arrSize, setArr, delay);
+
+    async function isSorted() {
+        let newArr = [...arr];
+        let prevCol = newArr[0].col;
+        newArr[0].col = colors.sorted;
+        let flag = true;
+        for (let i = 1; i < arrSize; i++) {
+            if (newArr[i].val < newArr[i - 1].val) {
+                newArr[i].col = colors.notSorted;
+                flag = false;
+            } else newArr[i].col = colors.sorted;
+            setArr([...newArr]);
+            await timer(delay);
+        }
+        for (let i = 0; i < arrSize; i++) {
+            newArr[i].col = prevCol;
+        }
+        setArr([...newArr]);
+        return flag;
+    }
+
+    async function randomize() {
+        let newArr = [...arr];
+        for (let i = newArr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+        }
+        arr = [...newArr];
+        setArr(newArr);
+        await timer(delay);
     }
 }

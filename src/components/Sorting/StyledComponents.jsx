@@ -7,7 +7,8 @@ export const colors = {
     good: "green",
     bad: "red",
     hold: "purple",
-    sorted: "#a5e48c",
+    sorted: "#9cb424",
+    notSorted: "#000000",
     left: "#eea319",
     right: "#cf1773",
 };
