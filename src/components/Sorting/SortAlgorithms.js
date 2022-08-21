@@ -41,7 +41,9 @@ export async function cocktailShaker(arr, arrSize, setArr, delay) {
     const newArr = arr;
     let start = 0,
         end = arrSize - 1;
-    while (start <= end) {
+    let flag = true;
+    while (start <= end && flag) {
+        flag = false;
         for (let i = start; i < end; i++) {
             newArr[i + 1].col = colors.selected;
             newArr[i].col = colors.selected;
@@ -49,6 +51,7 @@ export async function cocktailShaker(arr, arrSize, setArr, delay) {
             await timer(delay);
 
             if (newArr[i].val > newArr[i + 1].val) {
+                flag = true;
                 let temp = newArr[i].val;
                 newArr[i].val = newArr[i + 1].val;
                 newArr[i + 1].val = temp;
@@ -60,7 +63,7 @@ export async function cocktailShaker(arr, arrSize, setArr, delay) {
         newArr[end].col = colors.sorted;
         setArr([...newArr]);
         end--;
-        for (let j = end - 1; j >= start; j--) {
+        for (let j = end - 1; j >= start && flag; j--) {
             newArr[j].col = colors.selected;
             newArr[j + 1].col = colors.selected;
             setArr([...newArr]);
@@ -77,6 +80,11 @@ export async function cocktailShaker(arr, arrSize, setArr, delay) {
         }
         newArr[start].col = colors.sorted;
         start++;
+    }
+    while (start <= end) {
+        newArr[start++].col = colors.sorted;
+        setArr([...newArr]);
+        await timer(delay);
     }
     finishAnim(arr, arrSize, setArr, delay);
 }
