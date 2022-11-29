@@ -192,6 +192,11 @@ export async function quickSort(arr, arrSize, setArr, delay) {
 
     async function quickSortHelper(l, r) {
         if (l > r) return;
+        const newArr = arr;
+        let randomNumber = Math.floor(Math.random() * (r - l + 1) + l);
+        [newArr[r], newArr[randomNumber]] = [newArr[randomNumber], newArr[r]];
+        setArr([...newArr]);
+        await timer(delay);
         let pivPoint = await partition(l, r, r);
         await quickSortHelper(l, pivPoint - 1);
         await quickSortHelper(pivPoint + 1, r);

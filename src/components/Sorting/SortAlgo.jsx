@@ -110,7 +110,7 @@ function SortAlgo() {
             </TopBar>
             <VisualContainer siz={arrSize}>
                 {arr.map((item, idx) => (
-                    <Bar height={item.val} bg={item.col}></Bar>
+                    <Bar height={item.val} bg={item.col} key={idx}></Bar>
                 ))}
             </VisualContainer>
         </Container>
